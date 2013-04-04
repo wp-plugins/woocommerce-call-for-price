@@ -1,10 +1,10 @@
 === WooCommerce Call for Price ===
 Contributors: algoritmika
 Donate link: http://algoritmika.com/donate/
-Tags: woocommerce
+Tags: woocommerce,call for price
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ This plugin extends the WooCommerce e-commerce plugin by outputting "Call for Pr
 
 This plugin extends the WooCommerce e-commerce plugin by outputting "Call for Price" when price field for product is left empty.
 
-This plugin requires WooCommerce 2.0.5 or greater.
+This plugin was tested with WooCommerce 2.0.5.
 
 = Feedback =
 * We are open to your suggestions and feedback - Thank you for using or trying out one of our plugins!
@@ -33,7 +33,7 @@ This plugin requires WooCommerce 2.0.5 or greater.
 
 = Can I change "Call for Price" text? =
 
-At this time - no.
+You need [WooCommerce Call for Price Pro plugin](http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-pro-plugin) to change these settings.
 
 == Screenshots ==
 
@@ -41,10 +41,13 @@ At this time - no.
 
 == Changelog ==
 
+= 1.0.1 =
+* Minor bug fixed
+
 = 1.0.0 =
 * Initial Release
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-This version requires WooCommerce 2.0.5
+This version was tested with WooCommerce 2.0.5
