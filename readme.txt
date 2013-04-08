@@ -4,7 +4,7 @@ Donate link: http://algoritmika.com/donate/
 Tags: woocommerce,call for price
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,9 @@ You need [WooCommerce Call for Price Pro plugin](http://www.algoritmika.com/shop
 1. Empty price replaced by "Call for Price".
 
 == Changelog ==
+
+= 1.0.3 =
+* Minor bug fixed
 
 = 1.0.2 =
 * Minor bug fixed
