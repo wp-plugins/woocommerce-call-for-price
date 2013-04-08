@@ -35,7 +35,7 @@ if ( ! class_exists( 'woocfp_plugin_lite' ) ) {
 			?>
 		<div class="wrap">
 			<h2>WooCommerce Call for Price Options</h2>			
-			<form method="post" action="options.php">
+			<form method="post">
 				<div id="message" class="updated fade"><p><strong>*You need <a href='http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-pro-plugin/'>'WooCommerce Call for Price Pro'</a> plugin version to change these settings.</strong></p></div>
 				<table class="form-table">
 				<tr valign="top"><th scope="row">Text to output</th><td><input type="text" readonly style="width:300px;" id="woocfp_text_id" name="woocfp_option_group[woocfp_text]" value="Call for Price" /></td></tr>
