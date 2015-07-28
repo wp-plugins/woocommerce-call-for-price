@@ -1,65 +1,152 @@
 <?php
 /*
 Plugin Name: WooCommerce Call for Price
-Plugin URI: http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-plugin/
-Description: This plugin extends the WooCommerce e-commerce plugin by outputting "Call for Price" when price field for product is left empty.
-Version: 1.0.4
-Author: Algoritmika Ltd.
+Plugin URI: http://coder.fm/items/woocommerce-call-for-price-plugin
+Description: Plugin extends the WooCommerce plugin by outputting "Call for Price" when price field for product is left empty.
+Version: 2.0.0
+Author: Algoritmika Ltd
 Author URI: http://www.algoritmika.com
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Copyright: © 2015 Algoritmika Ltd.
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
-?>
-<?php
-if ( ! class_exists( 'woocfp_plugin_lite' ) ) {
-	class woocfp_plugin_lite{
-		public function __construct(){
-		
-			add_filter('woocommerce_empty_price_html', array($this, 'empty_price'), 99);
-		
-			//Settings
-			if(is_admin()){
-				add_action('admin_menu', array($this, 'add_plugin_options_page'));
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+// Check if WooCommerce is active
+if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return;
+
+if ( ! class_exists( 'Woocommerce_Call_For_Price' ) ) :
+
+/**
+ * Main Woocommerce_Call_For_Price Class
+ *
+ * @class Woocommerce_Call_For_Price
+ */
+
+final class Woocommerce_Call_For_Price {
+
+	/**
+	 * @var Woocommerce_Call_For_Price The single instance of the class
+	 */
+	protected static $_instance = null;
+
+	/**
+	 * Main Woocommerce_Call_For_Price Instance
+	 *
+	 * Ensures only one instance of Woocommerce_Call_For_Price is loaded or can be loaded.
+	 *
+	 * @static
+	 * @return Woocommerce_Call_For_Price - Main instance
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) )
+			self::$_instance = new self();
+		return self::$_instance;
+	}
+
+	/**
+	 * Woocommerce_Call_For_Price Constructor.
+	 * @access public
+	 */
+	public function __construct() {
+
+		// Include required files
+		$this->includes();
+
+		add_action( 'init', array( $this, 'init' ), 0 );
+
+		// Settings
+		if ( is_admin() ) {
+			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ), 9 );
+			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
+		}
+	}
+
+	/**
+	 * Show action links on the plugin screen
+	 *
+	 * @param mixed $links
+	 * @return array
+	 */
+	public function action_links( $links ) {
+		return array_merge( array(
+			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=call_for_price' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>',
+		), $links );
+	}
+
+	/**
+	 * Include required core files used in admin and on the frontend.
+	 */
+	private function includes() {
+
+		$settings = array();
+		$settings[] = require_once( 'includes/admin/class-wc-call-for-price-settings-general.php' );
+		if ( is_admin() ) {
+			foreach ( $settings as $section ) {
+				foreach ( $section->get_settings() as $value ) {
+					if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+						if ( isset ( $_GET['woocommerce_call_for_price_admin_options_reset'] ) ) {
+							require_once( ABSPATH . 'wp-includes/pluggable.php' );
+							if ( is_super_admin() ) {
+								delete_option( $value['id'] );
+							}
+						}
+						$autoload = isset( $value['autoload'] ) ? ( bool ) $value['autoload'] : true;
+						add_option( $value['id'], $value['default'], '', ( $autoload ? 'yes' : 'no' ) );
+					}
+				}
 			}
-			
-			add_filter('woocommerce_sale_flash', array($this, 'woo_custom_hide_sales_flash'), 99, 2);
-		}
-		
-		public function woo_custom_hide_sales_flash($post, $product)
-		{	
-			$current_product = get_product( $product->ID );
-			if ($current_product->get_price( ) === '')
-				return false;	
-			
-			return '<span class="onsale">'.__( 'Sale!', 'woocommerce' ).'</span>';
-		}			
-		
-		public function empty_price($price) {
-			return 'Call for Price';
-		}
-		
-		public function add_plugin_options_page(){
-			add_submenu_page( 'woocommerce', 'WooCommerce Call for Price Settings Admin', 'Call for Price Settings', 'manage_options', 'woocfp-lite-settings-admin', array($this, 'create_admin_page'));
 		}
 
-		public function create_admin_page(){
-			?>
-		<div class="wrap">
-			<h2>WooCommerce Call for Price Options</h2>			
-			<form method="post">
-				<div id="message" class="updated fade"><p><strong>*You need <a href='http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-pro-plugin/'>'WooCommerce Call for Price Pro'</a> plugin version to change these settings.</strong></p></div>
-				<table class="form-table">
-				<tr valign="top"><th scope="row">Text to output</th><td><input type="text" readonly style="width:300px;" id="woocfp_text_id" name="woocfp_option_group[woocfp_text]" value="Call for Price" /></td></tr>
-				<tr valign="top"><th scope="row">Display on single product</th><td><input disabled type="checkbox" checked id="woocfp_on_single_id" name="woocfp_option_group[woocfp_on_single]" /></td></tr>
-				<tr valign="top"><th scope="row">Display on products archive</th><td><input disabled type="checkbox" checked id="woocfp_on_archive_id" name="woocfp_option_group[woocfp_on_archive]" /></td></tr>
-				<tr valign="top"><th scope="row">Display on home page</th><td><input disabled type="checkbox" checked id="woocfp_on_home_id" name="woocfp_option_group[woocfp_on_home]" /></td></tr>
-				</table>
-				<?php submit_button(); ?>
-			</form>
-		</div>
-		<?php
-		}		
+		require_once( 'includes/class-wc-call-for-price.php' );
+	}
+
+	/**
+	 * Add Woocommerce settings tab to WooCommerce settings.
+	 */
+	public function add_woocommerce_settings_tab( $settings ) {
+		$settings[] = include( 'includes/admin/class-wc-settings-call-for-price.php' );
+		return $settings;
+	}
+
+	/**
+	 * Init Woocommerce_Call_For_Price when WordPress initialises.
+	 */
+	public function init() {
+		// Set up localisation
+		load_plugin_textdomain( 'woocommerce-call-for-price', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+	}
+
+	/**
+	 * Get the plugin url.
+	 *
+	 * @return string
+	 */
+	public function plugin_url() {
+		return untrailingslashit( plugin_dir_url( __FILE__ ) );
+	}
+
+	/**
+	 * Get the plugin path.
+	 *
+	 * @return string
+	 */
+	public function plugin_path() {
+		return untrailingslashit( plugin_dir_path( __FILE__ ) );
 	}
 }
 
-$woocfp_plugin_lite = &new woocfp_plugin_lite();
+endif;
+
+/**
+ * Returns the main instance of Woocommerce_Call_For_Price to prevent the need to use globals.
+ *
+ * @return Woocommerce_Call_For_Price
+ */
+function WCCFP() {
+	return Woocommerce_Call_For_Price::instance();
+}
+
+WCCFP();

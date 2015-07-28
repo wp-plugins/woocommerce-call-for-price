@@ -2,26 +2,24 @@
 Contributors: algoritmika
 Donate link: http://algoritmika.com/donate/
 Tags: woocommerce,call for price
-Requires at least: 3.5.1
-Tested up to: 3.5.1
-Stable tag: 1.0.4
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 3.8
+Tested up to: 4.2
+Stable tag: 2.0.0
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin extends the WooCommerce e-commerce plugin by outputting "Call for Price" when price field for product is left empty.
+Plugin extends the WooCommerce plugin by outputting "Call for Price" when price field for product is left empty.
 
 == Description ==
 
-This plugin extends the WooCommerce e-commerce plugin by outputting "Call for Price" when price field for product is left empty.
-
-This plugin was tested with WooCommerce 2.x.x.
+Plugin extends the WooCommerce plugin by outputting "Call for Price" when price field for product is left empty.
 
 = Feedback =
 * We are open to your suggestions and feedback - Thank you for using or trying out one of our plugins!
 * Drop us a line at [www.algoritmika.com](http://www.algoritmika.com)
 
 = More =
-* Vist the [WooCommerce Call for Price plugin page](http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-plugin/)
+* Visit the [WooCommerce Call for Price plugin page](http://coder.fm/items/woocommerce-call-for-price-plugin/)
 
 == Installation ==
 
@@ -33,13 +31,21 @@ This plugin was tested with WooCommerce 2.x.x.
 
 = Can I change "Call for Price" text? =
 
-You need [WooCommerce Call for Price Pro plugin](http://www.algoritmika.com/shop/wordpress-woocommerce-call-for-price-pro-plugin) to change these settings.
+You will need [WooCommerce Call for Price plugin page](http://coder.fm/items/woocommerce-call-for-price-plugin/).
+
+= Can I set where "Call for Price" text should be shown? =
+
+You will need [WooCommerce Call for Price plugin page](http://coder.fm/items/woocommerce-call-for-price-plugin/).
 
 == Screenshots ==
 
 1. Empty price replaced by "Call for Price".
 
 == Changelog ==
+
+= 2.0.0 - 28/07/2014 =
+* Dev - Option to hide/show sale tag added.
+* Dev - Major code refactoring. Settings are moved to "WooCommerce > Settings > Call for Price".
 
 = 1.0.4 =
 * Sale icon removed
@@ -53,10 +59,7 @@ You need [WooCommerce Call for Price Pro plugin](http://www.algoritmika.com/shop
 = 1.0.1 =
 * Minor bug fixed
 
-= 1.0.0 =
-* Initial Release
-
 == Upgrade Notice ==
 
 = 1.0.0 =
-This version was tested with WooCommerce 2.x.x
+This is the first release of the plugin.
