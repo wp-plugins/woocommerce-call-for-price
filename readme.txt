@@ -4,7 +4,7 @@ Donate link: http://algoritmika.com/donate/
 Tags: woocommerce,call for price
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -43,7 +43,11 @@ You will need [WooCommerce Call for Price plugin page](http://coder.fm/items/woo
 
 == Changelog ==
 
-= 2.0.0 - 28/07/2014 =
+= 2.0.1 - 08/08/2015 =
+* Dev - Turn off, if Pro installed.
+* Dev - Solaris theme compatibility added.
+
+= 2.0.0 - 28/07/2015 =
 * Dev - Option to hide/show sale tag added.
 * Dev - Major code refactoring. Settings are moved to "WooCommerce > Settings > Call for Price".
 

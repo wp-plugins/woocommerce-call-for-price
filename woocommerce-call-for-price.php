@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Call for Price
 Plugin URI: http://coder.fm/items/woocommerce-call-for-price-plugin
 Description: Plugin extends the WooCommerce plugin by outputting "Call for Price" when price field for product is left empty.
-Version: 2.0.0
+Version: 2.0.1
 Author: Algoritmika Ltd
 Author URI: http://www.algoritmika.com
 Copyright: © 2015 Algoritmika Ltd.
@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Check if WooCommerce is active
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return;
+
+// Check if Pro is active, if so then return
+if ( in_array( 'woocommerce-call-for-price-pro/woocommerce-call-for-price-pro.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) return;
 
 if ( ! class_exists( 'Woocommerce_Call_For_Price' ) ) :
 
